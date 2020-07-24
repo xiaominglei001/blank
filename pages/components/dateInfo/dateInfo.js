@@ -33,9 +33,9 @@ Component({
         });
         break;
       case 1:
+        let datatmep = this.getCurrWeekDays();
         this.setData({
-          currentDate: this.getCurrWeekDays()
-
+          currentDate: datatmep[0] + "-" + datatmep[1]
         });
         break;
       case 2:
@@ -89,6 +89,7 @@ Component({
           break;
       }
       //调用父方法设置过去
+    
       this.props.onSetdateList(this.data.currentDate);
     },
     handleNext() { //向右点击处理
