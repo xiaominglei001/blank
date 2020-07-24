@@ -1,0 +1,29 @@
+<view>
+  <tabs
+    tabs="{{tabs}}"
+    tabsName="activeTab"
+    onTabClick="handleTabClick"
+    onChange="handleTabChange"
+    onPlusClick="handlePlusClick"
+    activeTab="{{activeTab}}"
+    capsule="{{false}}"
+    swipeable="{{false}}"
+    capsule="{{typeCapsule}}"
+    hasSubTitle="{{false}}"
+    tabBarUnderlineWidth="20px"
+  >
+    <block a:for="{{tabs}}">
+     <tab-content 
+     key="{{index}}" 
+     index="{{index}}"
+     tabId="{{index}}" 
+     activeTab="{{activeTab}}">
+      </tab-content>
+    </block>
+  </tabs>
+  <!--使用日期组件-->
+  <date-info dateList="{{dateList}}"  datetype="{{activeTab}}" onSetdateList="onSetdateList"  />
+  <!--下部子组件 -->
+  <sub-tabs />
+  
+</view>

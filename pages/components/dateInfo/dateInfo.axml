@@ -1,0 +1,7 @@
+<view>
+  <view class="date-info">
+    <text class="date" onTap="hanlePreview">前一个</text>
+    <text class="date">{{currentDate}}</text>
+    <text class="date" onTap="handleNext">后一个</text>
+  </view>
+</view>

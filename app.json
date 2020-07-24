@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "pages/workOrders/workOrders",
+    "pages/index/index"
+  ],
+  "window": {
+    "defaultTitle": "My App"
+  }
+}

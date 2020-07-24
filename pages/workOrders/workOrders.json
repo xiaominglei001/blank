@@ -1,0 +1,9 @@
+{
+  "defaultTitle": "Tabs",
+  "usingComponents":{
+    "date-info": "../components/dateInfo/dateInfo",
+    "sub-tabs": "../components/subTabs/subTabs",
+    "tabs": "mini-ali-ui-rpx/es/tabs/index",
+    "tab-content": "mini-ali-ui-rpx/es/tabs/tab-content/index"
+  }
+}

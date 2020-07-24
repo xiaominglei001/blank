@@ -1,0 +1,22 @@
+<view>
+  <tabs
+    tabs="{{subTabs}}"
+    activeCls="active-tabs"
+    tabsName="subactiveTab"
+    onTabClick="handleTabClick"
+    onChange="handleTabChange"
+    onPlusClick="handlePlusClick"
+    activeTab="{{subactiveTab}}"
+    swipeable="{{true}}"
+    hasSubTitle="{{typeHasSubTitle}}"
+    tabBarUnderlineWidth="20px"
+  >
+ <block a:for="{{subTabs}}"> 
+     <tab-content  key="{{'sub'+index}}" tabId="{{'sub'+index}}" activeTab="{{subTabs}}"> 
+         <view >11111 {{index}}</view>
+      </tab-content>
+    </block>
+    
+  </tabs>
+ 
+</view>
