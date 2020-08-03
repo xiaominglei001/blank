@@ -24,6 +24,6 @@
   <!--使用日期组件-->
   <date-info dateList="{{dateList}}"  datetype="{{activeTab}}" onSetdateList="onSetdateList"  />
   <!--下部子组件 -->
-  <sub-tabs />
+  <sub-tabs  beginDate="{{beginDate}}" endDate="{{endDate}}"/>
   
 </view>

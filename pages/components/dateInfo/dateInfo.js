@@ -19,7 +19,9 @@ Component({
   didMount() {
     this.setData({
       currentDate: this.props.dateList,
-      datetype: this.props.datetype
+      datetype: this.props.datetype,
+      beginDate: this.props.beginDate,
+      endDate: this.props.endDate
     })
   },
   //组件生命周期函数，组件更新完毕时触发
@@ -32,29 +34,36 @@ Component({
     switch (this.data.datetype) {
       case 0:
         this.setData({
-          currentDate: momentd().add(this.data.addnum, 'd').format('YYYY年MM月DD日')
+          currentDate: momentd().add(this.data.addnum, 'd').format('YYYY年MM月DD日'),
+          beginDate: momentd().add(this.data.addnum, 'd').format('YYYY-MM-DD') + " 00:00:00",
+          endDate: momentd().add(this.data.addnum, 'd').format('YYYY-MM-DD') + " 23:59:59"
         });
         break;
       case 1:
         let datatmep = this.getCurrWeekDays();
+        let datatmepwithyear = this.getCurrWeekDaysWithYear();
         this.setData({
-          currentDate: datatmep[0] + "-" + datatmep[1]
+          currentDate: datatmep[0] + "-" + datatmep[1],
+          beginDate: datatmepwithyear[0] + " 00:00:00",
+          endDate: datatmepwithyear[1] + " 23:59:59"
         });
         break;
       case 2:
         this.setData({
-          currentDate: momentd().add(this.data.addnum2, 'months').format('YYYY年MM月')
+          currentDate: momentd().add(this.data.addnum2, 'months').format('YYYY年MM月'),
+          beginDate: momentd().add(this.data.addnum2, 'months').format('YYYY-MM-') + "01" + " 00:00:00",
+          endDate: momentd(momentd().add(this.data.addnum2, 'months')._d).endOf('month').format('YYYY-MM-DD 23:59:59')
 
         });
-        console.log(this.data.currentDate);
         break
       case 3:
         this.setData({
-          currentDate: momentd().add(this.data.addnum3, 'year').format('YYYY年')
+          currentDate: momentd().add(this.data.addnum3, 'year').format('YYYY年'),
+          beginDate: momentd().add(this.data.addnum3, 'year').format('YYYY') + "-01-01" + " 00:00:00",
+          endDate: momentd().add(this.data.addnum3, 'year').format('YYYY') + "-12-31" + " 23:59:59",
         });
         break;
     }
-    console.log("didUpdate更新值:" + this.data.currentDate);
   },
   //方法
   methods: {
@@ -77,26 +86,26 @@ Component({
           this.setData({
             currentDate: datatmep[0] + "-" + datatmep[1],
             beginDate: datatmepwithyear[0] + " 00:00:00",
-            endDate: datatmepwithyear[0] + " 23:59:59"
+            endDate: datatmepwithyear[1] + " 23:59:59"
           });
           break;
         case 2:
-          let tempnowmonth = momentd().add(this.data.addnum2 - 1, 'months').format('YYYY年MM月');
           this.setData({
             addnum2: this.data.addnum2 - 1,
-            currentDate: tempnowmonth,
-            beginDate: tempnowmonth+"01"+" 00:00:00",
-            endDate:'' //待加。。。。。。。。。。。。。
-
+            currentDate: momentd().add(this.data.addnum2 - 1, 'months').format('YYYY年MM月'),
+            beginDate: momentd().add(this.data.addnum2 - 1, 'months').format('YYYY-MM-') + "01" + " 00:00:00",
+            endDate: momentd(momentd().add(this.data.addnum2 - 1, 'months')._d).endOf('month').format('YYYY-MM-DD 23:59:59')
           });
-          console.log(this.data.beginDate+"=======222222======="+this.data.endDate);
+
           break
         case 3:
           this.setData({
             addnum3: this.data.addnum3 - 1,
-            currentDate: momentd().add(this.data.addnum3 - 1, 'year').format('YYYY年')
-
+            currentDate: momentd().add(this.data.addnum3 - 1, 'year').format('YYYY年'),
+            beginDate: momentd().add(this.data.addnum3 - 1, 'year').format('YYYY') + "-01-01" + " 00:00:00",
+            endDate: momentd().add(this.data.addnum3 - 1, 'year').format('YYYY') + "-12-31" + " 23:59:59",
           });
+
           break;
       }
       //调用父方法设置过去
@@ -107,7 +116,9 @@ Component({
         case 0:
           this.setData({
             addnum: this.data.addnum + 1,
-            currentDate: momentd().add(this.data.addnum + 1, 'd').format('YYYY年MM月DD日')
+            currentDate: momentd().add(this.data.addnum + 1, 'd').format('YYYY年MM月DD日'),
+            beginDate: momentd().add(this.data.addnum + 1, 'd').format('YYYY-MM-DD') + " 00:00:00",
+            endDate: momentd().add(this.data.addnum + 1, 'd').format('YYYY-MM-DD') + " 23:59:59"
 
           });
           break;
@@ -116,21 +127,27 @@ Component({
             addnum1: this.data.addnum1 + 1,
           });
           let datatmep = this.getCurrWeekDays();
+          let datatmepwithyear = this.getCurrWeekDaysWithYear();
           this.setData({
-            currentDate: datatmep[0] + "-" + datatmep[1]
+            currentDate: datatmep[0] + "-" + datatmep[1],
+            beginDate: datatmepwithyear[0] + " 00:00:00",
+            endDate: datatmepwithyear[1] + " 23:59:59"
           });
           break;
         case 2:
           this.setData({
             addnum2: this.data.addnum2 + 1,
-            currentDate: momentd().add(this.data.addnum2 + 1, 'months').format('YYYY年MM月')
-
+            currentDate: momentd().add(this.data.addnum2 + 1, 'months').format('YYYY年MM月'),
+            beginDate: momentd().add(this.data.addnum2 + 1, 'months').format('YYYY-MM-') + "01" + " 00:00:00",
+            endDate: momentd(momentd().add(this.data.addnum2 + 1, 'months')._d).endOf('month').format('YYYY-MM-DD 23:59:59')
           });
           break
         case 3:
           this.setData({
             addnum3: this.data.addnum3 + 1,
-            currentDate: momentd().add(this.data.addnum3 + 1, 'year').format('YYYY年')
+            currentDate: momentd().add(this.data.addnum3 + 1, 'year').format('YYYY年'),
+            beginDate: momentd().add(this.data.addnum3 + 1, 'year').format('YYYY') + "-01-01" + " 00:00:00",
+            endDate: momentd().add(this.data.addnum3 + 1, 'year').format('YYYY') + "-12-31" + " 23:59:59",
 
           });
           break;

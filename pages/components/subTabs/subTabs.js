@@ -1,6 +1,6 @@
 Component({
   mixins: [],
-   data: {
+  data: {
     subTabs: [
       {
         title: '1',
@@ -14,10 +14,12 @@ Component({
         title: '3',
         subTitle: '处理中',
       },
-      { title: '4',
+      {
+        title: '4',
         subTitle: '待确认',
       },
-      { title: '5',
+      {
+        title: '5',
         subTitle: '已完成',
       }
     ],
@@ -38,32 +40,41 @@ Component({
       { name: 'has', value: '是' },
       { name: 'hasnt', value: '否', checked: true },
     ],
- 
+    beginDate: '',//需要上传的开始时间
+    endDate: '',//需要上传的结束时间
+
   },
-   onTabItemTap(item) {
+  onTabItemTap(item) {
     console.log(item)
   },
   props: {},
-  didMount() {},
-  didUpdate() {},
-  didUnmount() {},
+  didMount() { 
+    this.setData({
+      beginDate: this.props.beginDate,
+      endDate: this.props.endDate
+    })
+  },
+  didUpdate() { 
+    console.log(this.data.beginDate+"-----subTabs-------"+this.data.endDate);
+  },
+  didUnmount() { },
   methods: {
     handleTabChange({ index, tabsName }) {
       console.log(index)
-    this.setData({
-      [tabsName]: index,
-    });
-  },
-     handleTabClick({ index, tabsName }) {
-       console.log(tabsName)
-        console.log(2222)
-    this.setData({
-      [tabsName]: index,
-    });
-    setTimeout(()=>{
-       console.log(this.data.subactiveTab)
-    },2000)
-   
-  },
+      this.setData({
+        [tabsName]: index,
+      });
+    },
+    handleTabClick({ index, tabsName }) {
+      console.log(tabsName)
+      console.log(2222)
+      this.setData({
+        [tabsName]: index,
+      });
+      setTimeout(() => {
+        console.log(this.data.subactiveTab)
+      }, 2000)
+
+    },
   },
 });

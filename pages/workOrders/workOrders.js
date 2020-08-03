@@ -3,8 +3,8 @@ moment.locale('zh-cn');
 Page({
   data: {
     dateList: moment().format("YYYY年MM月"),//子组件显示日期，因为要显示第三个，所以默认初始值所以设置为月份
-    beginDate:'',
-    endDate:'',
+    beginDate: '',
+    endDate: '',
     tabs: [
       {
         title: '日',
@@ -73,12 +73,16 @@ Page({
     }
   },
 
-  //处理Tab点击事件--此时activeTab也跟着进行了变化
+  //处理Tab点击事件--此时activeTab也会跟着进行了变化
   handleTabClick({ index, tabsName }) {
-   this.setData({
+    console.log('点击顶部-----------------' + index);
+    this.setData({
       [tabsName]: index,
     });
   },
+
+
+
   handleTabChange({ index, tabsName }) {
     this.setData({
       [tabsName]: index,
@@ -92,13 +96,13 @@ Page({
   },
 
   //接收子组件传值
-  onSetdateList(data,be,ed) {
+  onSetdateList(data, be, ed) {
     this.setData({
       dateList: data,
-      beginDate:be,
-      endDate:ed
+      beginDate: be,
+      endDate: ed
     })
-    //console.log("接收子组件设置值："+this.data.dateList+'-'+this.data.beginDate+"-"+this.data.endDate)
+    console.log("接收子组件设置值：" + this.data.dateList + '==========' + this.data.beginDate + "==========" + this.data.endDate)
   }
 
 
