@@ -3,6 +3,8 @@ moment.locale('zh-cn');
 Page({
   data: {
     dateList: moment().format("YYYY年MM月"),//子组件显示日期，因为要显示第三个，所以默认初始值所以设置为月份
+    beginDate:'',
+    endDate:'',
     tabs: [
       {
         title: '日',
@@ -90,11 +92,13 @@ Page({
   },
 
   //接收子组件传值
-  onSetdateList(data) {
+  onSetdateList(data,be,ed) {
     this.setData({
-      dateList: data
+      dateList: data,
+      beginDate:be,
+      endDate:ed
     })
-    console.log("接收子组件设置值："+this.data.dateList)
+    //console.log("接收子组件设置值："+this.data.dateList+'-'+this.data.beginDate+"-"+this.data.endDate)
   }
 
 

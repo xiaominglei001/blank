@@ -1,4 +1,5 @@
 import momentd from 'moment';
+import { relativeTimeThreshold } from 'moment';
 momentd.locale('zh-cn');
 
 Component({
@@ -9,6 +10,8 @@ Component({
     addnum1: 0,
     addnum2: 0,
     addnum3: 0,
+    beginDate: '',//需要上传的开始时间
+    endDate: '',//需要上传的结束时间
     currentDate: '',
     datetype: ''
   },
@@ -55,30 +58,38 @@ Component({
   },
   //方法
   methods: {
-    hanlePreview() {//向左点击处理
+    hanlePreview() { //向左点击处理
       switch (this.data.datetype) {
-        case 0:
+        case 0: //日点击
           this.setData({
             addnum: this.data.addnum - 1,
-            currentDate: momentd().add(this.data.addnum - 1, 'd').format('YYYY年MM月DD日')
+            currentDate: momentd().add(this.data.addnum - 1, 'd').format('YYYY年MM月DD日'),
+            beginDate: momentd().add(this.data.addnum - 1, 'd').format('YYYY-MM-DD') + " 00:00:00",
+            endDate: momentd().add(this.data.addnum - 1, 'd').format('YYYY-MM-DD') + " 23:59:59"
           });
-
           break;
         case 1:
           this.setData({
             addnum1: this.data.addnum1 - 1,
           });
           let datatmep = this.getCurrWeekDays();
+          let datatmepwithyear = this.getCurrWeekDaysWithYear();
           this.setData({
-            currentDate: datatmep[0] + "-" + datatmep[1]
+            currentDate: datatmep[0] + "-" + datatmep[1],
+            beginDate: datatmepwithyear[0] + " 00:00:00",
+            endDate: datatmepwithyear[0] + " 23:59:59"
           });
           break;
         case 2:
+          let tempnowmonth = momentd().add(this.data.addnum2 - 1, 'months').format('YYYY年MM月');
           this.setData({
             addnum2: this.data.addnum2 - 1,
-            currentDate: momentd().add(this.data.addnum2 - 1, 'months').format('YYYY年MM月')
+            currentDate: tempnowmonth,
+            beginDate: tempnowmonth+"01"+" 00:00:00",
+            endDate:'' //待加。。。。。。。。。。。。。
 
           });
+          console.log(this.data.beginDate+"=======222222======="+this.data.endDate);
           break
         case 3:
           this.setData({
@@ -89,8 +100,7 @@ Component({
           break;
       }
       //调用父方法设置过去
-    
-      this.props.onSetdateList(this.data.currentDate);
+      this.props.onSetdateList(this.data.currentDate, this.data.beginDate, this.data.endDate);
     },
     handleNext() { //向右点击处理
       switch (this.data.datetype) {
@@ -126,7 +136,7 @@ Component({
           break;
       }
       //调用父方法设置过去
-      this.props.onSetdateList(this.data.currentDate);
+      this.props.onSetdateList(this.data.currentDate, this.data.beginDate, this.data.endDate);
 
     },
 
@@ -135,6 +145,15 @@ Component({
       let date = []
       let start = momentd().week(momentd().week() + this.data.addnum1).startOf('week').format('MM月DD日')
       let end = momentd().week(momentd().week() + this.data.addnum1).endOf('week').format('MM月DD日')
+      date.push(start)
+      date.push(end)
+      return date
+    },
+    // 获取下一周的开始结束时间，周日到周六
+    getCurrWeekDaysWithYear() {
+      let date = []
+      let start = momentd().week(momentd().week() + this.data.addnum1).startOf('week').format('YYYY-MM-DD')
+      let end = momentd().week(momentd().week() + this.data.addnum1).endOf('week').format('YYYY-MM-DD')
       date.push(start)
       date.push(end)
       return date
