@@ -47,6 +47,7 @@ Component({
   //方法
   methods: {
     hanlePreview() { //向左点击处理
+    let step;
       switch (this.data.datetype) {
         case 0: //日点击
           this.setData({
@@ -55,6 +56,7 @@ Component({
             beginDate: momentd().add(this.data.addnum - 1, 'd').format('YYYY-MM-DD') + " 00:00:00",
             endDate: momentd().add(this.data.addnum - 1, 'd').format('YYYY-MM-DD') + " 23:59:59"
           });
+          step = this.data.addnum
           break;
         case 1:
           this.setData({
@@ -67,6 +69,7 @@ Component({
             beginDate: datatmepwithyear[0] + " 00:00:00",
             endDate: datatmepwithyear[1] + " 23:59:59"
           });
+           step = this.data.addnum1
           break;
         case 2:
           this.setData({
@@ -75,7 +78,7 @@ Component({
             beginDate: momentd().add(this.data.addnum2 - 1, 'months').format('YYYY-MM-') + "01" + " 00:00:00",
             endDate: momentd(momentd().add(this.data.addnum2 - 1, 'months')._d).endOf('month').format('YYYY-MM-DD 23:59:59')
           });
-
+           step = this.data.addnum2
           break
         case 3:
           this.setData({
@@ -84,13 +87,22 @@ Component({
             beginDate: momentd().add(this.data.addnum3 - 1, 'year').format('YYYY') + "-01-01" + " 00:00:00",
             endDate: momentd().add(this.data.addnum3 - 1, 'year').format('YYYY') + "-12-31" + " 23:59:59",
           });
-
+            step = this.data.addnum3
           break;
       }
       //调用父方法设置过去
-      this.props.onSetdateList(this.data.currentDate, this.data.beginDate, this.data.endDate);
+      // this.data.datetype
+      let params = {
+        currentDate:this.data.currentDate, //当前时间
+        beginDate:this.data.beginDate, //开始时间
+        type:this.data.datetype, //类型
+        endDate:this.data.endDate, //结束时间
+        step:step //增量
+      }
+      this.props.onSetdateList(params);
     },
     handleNext() { //向右点击处理
+     let step;
       switch (this.data.datetype) {
         case 0:
           this.setData({
@@ -100,6 +112,7 @@ Component({
             endDate: momentd().add(this.data.addnum + 1, 'd').format('YYYY-MM-DD') + " 23:59:59"
 
           });
+            step = this.data.addnum
           break;
         case 1:
           this.setData({
@@ -112,6 +125,7 @@ Component({
             beginDate: datatmepwithyear[0] + " 00:00:00",
             endDate: datatmepwithyear[1] + " 23:59:59"
           });
+            step = this.data.addnum1
           break;
         case 2:
           this.setData({
@@ -120,6 +134,7 @@ Component({
             beginDate: momentd().add(this.data.addnum2 + 1, 'months').format('YYYY-MM-') + "01" + " 00:00:00",
             endDate: momentd(momentd().add(this.data.addnum2 + 1, 'months')._d).endOf('month').format('YYYY-MM-DD 23:59:59')
           });
+            step = this.data.addnum2
           break
         case 3:
           this.setData({
@@ -129,10 +144,20 @@ Component({
             endDate: momentd().add(this.data.addnum3 + 1, 'year').format('YYYY') + "-12-31" + " 23:59:59",
 
           });
+            step = this.data.addnum3
           break;
       }
+        //调用父方法设置过去
+        let params = {
+          currentDate:this.data.currentDate, //当前时间
+          beginDate:this.data.beginDate, //开始时间
+          type:this.data.datetype, //类型
+          endDate:this.data.endDate, //结束时间
+          step:step //增量
+        }
+        this.props.onSetdateList(params);
       //调用父方法设置过去
-      this.props.onSetdateList(this.data.currentDate, this.data.beginDate, this.data.endDate);
+      // this.props.onSetdateList(this.data.currentDate, this.data.beginDate, this.data.endDate,this.data.addnum);
 
     },
 

@@ -163,14 +163,31 @@ Page({
   },
 
   //接收子组件传值
-  onSetdateList(data, be, ed) {
+  onSetdateList(params) {
     this.setData({
-      dateList: data,
-      beginDate: be,
-      endDate: ed,
-      addnum:10
-    }),
-    // console.log(this.data.this.data.addnum)
+      dateList: params.currentDate,
+      beginDate:  params.beginDate,
+      endDate:  params.beginDate
+    })
+    console.log(params)
+      if(params.type === 0){
+        this.setData({
+          addnum: params.step
+        })
+      }else if(params.type === 1){
+         this.setData({
+          addnum1: params.step
+        })
+      }else if(params.type === 2){
+         this.setData({
+          addnum2: params.step
+        })
+      }else if(params.type === 3){
+         this.setData({
+          addnum3: params.step
+        })
+      }
+  //此处需要把this.data.addnum 做一个更新
     
     this.getData();
   },
