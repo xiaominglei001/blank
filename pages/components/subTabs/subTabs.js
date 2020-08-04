@@ -53,9 +53,11 @@ Component({
       beginDate: this.props.beginDate,
       endDate: this.props.endDate
     })
+
+     console.log(this.data.beginDate+"-----didMount-------"+this.data.endDate);
   },
   didUpdate() { 
-    console.log(this.data.beginDate+"-----subTabs-------"+this.data.endDate);
+    console.log(this.data.beginDate+"-----didUpdate-------"+this.data.endDate);
   },
   didUnmount() { },
   methods: {

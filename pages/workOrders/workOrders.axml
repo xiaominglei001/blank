@@ -3,7 +3,7 @@
     tabs="{{tabs}}"
     tabsName="activeTab"
     onTabClick="handleTabClick"
-    onChange="handleTabChange"
+    
     onPlusClick="handlePlusClick"
     activeTab="{{activeTab}}"
     capsule="{{false}}"
@@ -24,6 +24,28 @@
   <!--使用日期组件-->
   <date-info dateList="{{dateList}}"  datetype="{{activeTab}}" onSetdateList="onSetdateList"  />
   <!--下部子组件 -->
-  <sub-tabs  beginDate="{{beginDate}}" endDate="{{endDate}}"/>
+ <!--<sub-tabs  beginDate="{{beginDate}}" endDate="{{endDate}}"/>--> 
+
+ <view>
+  <tabs
+    tabs="{{subTabs}}"
+    activeCls="active-tabs"
+    tabsName="subactiveTab"
+    onTabClick="handlesubTabChange"
+   
+    onPlusClick="handlePlusClick"
+    activeTab="{{subactiveTab}}"
+    swipeable="{{true}}"
+    hasSubTitle="{{typeHasSubTitle}}"
+    tabBarUnderlineWidth="20px"
+  >
+ <block a:for="{{subTabs}}"> 
+     <tab-content  key="{{'sub'+index}}" tabId="{{'sub'+index}}" activeTab="{{subTabs}}"> 
+         <view >11111 {{index}}</view>
+      </tab-content>
+    </block>
+  </tabs>
+ 
+</view>
   
 </view>

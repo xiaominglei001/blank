@@ -3,8 +3,8 @@ moment.locale('zh-cn');
 Page({
   data: {
     dateList: moment().format("YYYY年MM月"),//子组件显示日期，因为要显示第三个，所以默认初始值所以设置为月份
-    beginDate: '',
-    endDate: '',
+    beginDate: moment().add(0, 'months').format('YYYY-MM-') + "01" + " 00:00:00",//默认时间
+    endDate: moment(moment().add(0, 'months')._d).endOf('month').format('YYYY-MM-DD 23:59:59'),//默认时间
     tabs: [
       {
         title: '日',
@@ -40,6 +40,31 @@ Page({
       { name: 'has', value: '是' },
       { name: 'hasnt', value: '否', checked: true },
     ],
+    //sub
+    subTabs: [
+      {
+        title: '1',
+        subTitle: '全部',
+      },
+      {
+        title: '2',
+        subTitle: '待处理',
+      },
+      {
+        title: '3',
+        subTitle: '处理中',
+      },
+      {
+        title: '4',
+        subTitle: '待确认',
+      },
+      {
+        title: '5',
+        subTitle: '已完成',
+      }
+    ],
+    subactiveTab: 0,//下方tab点击索引
+    typeHasSubTitle: true,
 
   },
 
@@ -80,15 +105,16 @@ Page({
       [tabsName]: index,
     });
   },
-
-
-
-  handleTabChange({ index, tabsName }) {
+  handlesubTabChange({ index, tabsName }) {
+    console.log('点击状态-----------------' + index);
     this.setData({
       [tabsName]: index,
     });
-
+    //this.getData();
   },
+
+
+
   handlePlusClick() {
     my.alert({
       content: 'plus clicked',
@@ -101,9 +127,18 @@ Page({
       dateList: data,
       beginDate: be,
       endDate: ed
-    })
-    console.log("接收子组件设置值：" + this.data.dateList + '==========' + this.data.beginDate + "==========" + this.data.endDate)
-  }
+    }),
+  
+    
+    this.getData();
+  },
 
+  onReady() {
+    this.getData();
+  },
+  getData() {
+    console.log("请求时数据，显示" + this.data.dateList + '==========begin:' + this.data.beginDate +
+      "==========end:" + this.data.endDate + "====状态：" + this.data.subactiveTab)
+  }
 
 });

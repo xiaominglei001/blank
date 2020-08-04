@@ -3,7 +3,7 @@ import { relativeTimeThreshold } from 'moment';
 momentd.locale('zh-cn');
 
 Component({
-  props: {
+  props: {//可给外部传入的属性添加默认值
   },
   data: {
     addnum: 0,
@@ -63,7 +63,11 @@ Component({
           endDate: momentd().add(this.data.addnum3, 'year').format('YYYY') + "-12-31" + " 23:59:59",
         });
         break;
-    }
+    };
+    //debugger;
+     //调用父方法设置过去
+    this.props.onSetdateList(this.data.currentDate, this.data.beginDate, this.data.endDate);
+     
   },
   //方法
   methods: {
