@@ -65,6 +65,11 @@ Page({
     ],
     subactiveTab: 0,//下方tab点击索引
     typeHasSubTitle: true,
+     addnum: 0,
+    addnum1: 0,
+    addnum2: 0,
+    addnum3: 0,
+    currentDate: '',
 
   },
 
@@ -104,6 +109,42 @@ Page({
     this.setData({
       [tabsName]: index,
     });
+    this.dealDatechange()
+  },
+  dealDatechange(){
+     switch (this.data.activeTab) {
+      case 0:
+        this.setData({
+          dateList: moment().add(this.data.addnum, 'd').format('YYYY年MM月DD日'),
+          beginDate: moment().add(this.data.addnum, 'd').format('YYYY-MM-DD') + " 00:00:00",
+          endDate: moment().add(this.data.addnum, 'd').format('YYYY-MM-DD') + " 23:59:59"
+        });
+        break;
+      case 1:
+        let datatmep = this.getCurrWeekDays();
+        let datatmepwithyear = this.getCurrWeekDaysWithYear();
+        this.setData({
+          dateList: datatmep[0] + "-" + datatmep[1],
+          beginDate: datatmepwithyear[0] + " 00:00:00",
+          endDate: datatmepwithyear[1] + " 23:59:59"
+        });
+        break;
+      case 2:
+        this.setData({
+          dateList: moment().add(this.data.addnum2, 'months').format('YYYY年MM月'),
+          beginDate: moment().add(this.data.addnum2, 'months').format('YYYY-MM-') + "01" + " 00:00:00",
+          endDate: moment(moment().add(this.data.addnum2, 'months')._d).endOf('month').format('YYYY-MM-DD 23:59:59')
+
+        });
+        break
+      case 3:
+        this.setData({
+          dateList: moment().add(this.data.addnum3, 'year').format('YYYY年'),
+          beginDate: moment().add(this.data.addnum3, 'year').format('YYYY') + "-01-01" + " 00:00:00",
+          endDate: moment().add(this.data.addnum3, 'year').format('YYYY') + "-12-31" + " 23:59:59",
+        });
+        break;
+    };
   },
   handlesubTabChange({ index, tabsName }) {
     console.log('点击状态-----------------' + index);
@@ -126,9 +167,10 @@ Page({
     this.setData({
       dateList: data,
       beginDate: be,
-      endDate: ed
+      endDate: ed,
+      addnum:10
     }),
-  
+    // console.log(this.data.this.data.addnum)
     
     this.getData();
   },
@@ -139,6 +181,24 @@ Page({
   getData() {
     console.log("请求时数据，显示" + this.data.dateList + '==========begin:' + this.data.beginDate +
       "==========end:" + this.data.endDate + "====状态：" + this.data.subactiveTab)
-  }
+  },
+   // 获取下一周的开始结束时间，周日到周六
+    getCurrWeekDays() {
+      let date = []
+      let start = moment().week(moment().week() + this.data.addnum1).startOf('week').format('MM月DD日')
+      let end = moment().week(moment().week() + this.data.addnum1).endOf('week').format('MM月DD日')
+      date.push(start)
+      date.push(end)
+      return date
+    },
+    // 获取下一周的开始结束时间，周日到周六
+    getCurrWeekDaysWithYear() {
+      let date = []
+      let start = moment().week(moment().week() + this.data.addnum1).startOf('week').format('YYYY-MM-DD')
+      let end = moment().week(moment().week() + this.data.addnum1).endOf('week').format('YYYY-MM-DD')
+      date.push(start)
+      date.push(end)
+      return date
+    }
 
 });

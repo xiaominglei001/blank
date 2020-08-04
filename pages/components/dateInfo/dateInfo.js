@@ -17,56 +17,31 @@ Component({
   },
   //组件生命周期函数，组件创建完毕时触发
   didMount() {
+    console.log(1111)
     this.setData({
       currentDate: this.props.dateList,
       datetype: this.props.datetype,
       beginDate: this.props.beginDate,
       endDate: this.props.endDate
     })
+   
   },
   //组件生命周期函数，组件更新完毕时触发
   didUpdate() {
-    //①tab变动后拿取当前激活的tab索引
-    this.setData({
+     this.setData({
+      currentDate: this.props.dateList,
       datetype: this.props.datetype,
+      beginDate: this.props.beginDate,
+      endDate: this.props.endDate
     })
+     console.log(222)
+    //①tab变动后拿取当前激活的tab索引
+  
     //②然后根据不同datetype类型，结合addnum..的值，设置上不同日期显示
-    switch (this.data.datetype) {
-      case 0:
-        this.setData({
-          currentDate: momentd().add(this.data.addnum, 'd').format('YYYY年MM月DD日'),
-          beginDate: momentd().add(this.data.addnum, 'd').format('YYYY-MM-DD') + " 00:00:00",
-          endDate: momentd().add(this.data.addnum, 'd').format('YYYY-MM-DD') + " 23:59:59"
-        });
-        break;
-      case 1:
-        let datatmep = this.getCurrWeekDays();
-        let datatmepwithyear = this.getCurrWeekDaysWithYear();
-        this.setData({
-          currentDate: datatmep[0] + "-" + datatmep[1],
-          beginDate: datatmepwithyear[0] + " 00:00:00",
-          endDate: datatmepwithyear[1] + " 23:59:59"
-        });
-        break;
-      case 2:
-        this.setData({
-          currentDate: momentd().add(this.data.addnum2, 'months').format('YYYY年MM月'),
-          beginDate: momentd().add(this.data.addnum2, 'months').format('YYYY-MM-') + "01" + " 00:00:00",
-          endDate: momentd(momentd().add(this.data.addnum2, 'months')._d).endOf('month').format('YYYY-MM-DD 23:59:59')
-
-        });
-        break
-      case 3:
-        this.setData({
-          currentDate: momentd().add(this.data.addnum3, 'year').format('YYYY年'),
-          beginDate: momentd().add(this.data.addnum3, 'year').format('YYYY') + "-01-01" + " 00:00:00",
-          endDate: momentd().add(this.data.addnum3, 'year').format('YYYY') + "-12-31" + " 23:59:59",
-        });
-        break;
-    };
+  
     //debugger;
      //调用父方法设置过去
-    this.props.onSetdateList(this.data.currentDate, this.data.beginDate, this.data.endDate);
+    // this.props.onSetdateList(this.data.currentDate, this.data.beginDate, this.data.endDate);
      
   },
   //方法
