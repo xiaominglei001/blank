@@ -188,6 +188,13 @@ Page({
     });
     this.getData();
   },
+  handlesubs({ index, tabsName }) {
+    console.log("点击状态-----------------" + index);
+    this.setData({
+      [tabsName]: index
+    });
+    this.getData();
+  },
 
   handlePlusClick() {
     my.alert({
