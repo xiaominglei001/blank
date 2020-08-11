@@ -1,51 +1,72 @@
 <view>
-  <tabs
-    tabs="{{tabs}}"
-    tabsName="activeTab"
-    onTabClick="handleTabClick"
-    
-    onPlusClick="handlePlusClick"
-    activeTab="{{activeTab}}"
-    capsule="{{false}}"
-    swipeable="{{false}}"
-    capsule="{{typeCapsule}}"
-    hasSubTitle="{{false}}"
-    tabBarUnderlineWidth="20px"
-  >
+  <tabs tabs="{{tabs}}" tabsName="activeTab" onTabClick="handleTabClick" onPlusClick="handlePlusClick" activeTab="{{activeTab}}" capsule="{{false}}" swipeable="{{false}}" capsule="{{typeCapsule}}" hasSubTitle="{{false}}" tabBarUnderlineWidth="20px">
     <block a:for="{{tabs}}">
-     <tab-content 
-     key="{{index}}" 
-     index="{{index}}"
-     tabId="{{index}}" 
-     activeTab="{{activeTab}}">
+      <tab-content key="{{index}}" index="{{index}}" tabId="{{index}}" activeTab="{{activeTab}}">
       </tab-content>
     </block>
   </tabs>
   <!--使用日期组件-->
-  <date-info dateList="{{dateList}}"  datetype="{{activeTab}}" onSetdateList="onSetdateList"  />
+  <date-info dateList="{{dateList}}" datetype="{{activeTab}}" onSetdateList="onSetdateList" />
   <!--下部子组件 -->
- <!--<sub-tabs  beginDate="{{beginDate}}" endDate="{{endDate}}"/>--> 
-
- <view>
-  <tabs
-    tabs="{{subTabs}}"
-    activeCls="active-tabs"
-    tabsName="subactiveTab"
-    onTabClick="handlesubTabChange"
-   
-    onPlusClick="handlePlusClick"
-    activeTab="{{subactiveTab}}"
-    swipeable="{{true}}"
-    hasSubTitle="{{typeHasSubTitle}}"
-    tabBarUnderlineWidth="20px"
-  >
- <block a:for="{{subTabs}}"> 
-     <tab-content  key="{{'sub'+index}}" tabId="{{'sub'+index}}" activeTab="{{subTabs}}"> 
-         <view >11111 {{index}}</view>
-      </tab-content>
-    </block>
-  </tabs>
- 
-</view>
-  
-</view>
+  <!--<sub-tabs beginDate="{{beginDate}}" endDate="{{endDate}}"/>-->
+  <view>
+    <tabs tabs="{{subTabs}}" activeCls="active-tabs" tabsName="subactiveTab" onTabClick="handlesubTabChange" onPlusClick="handlePlusClick" activeTab="{{subactiveTab}}" swipeable="{{true}}" hasSubTitle="{{typeHasSubTitle}}" tabBarUnderlineWidth="20px">
+      <block a:for="{{subTabs}}">
+        <tab-content key="{{'sub'+index}}" tabId="{{'sub'+index}}" activeTab="{{subTabs}}">
+          <view >
+         {{index}}
+            <block a:for="{{listitemddata}}" a:for-item="item">
+              <view class="itemsingleall">
+                <image src="http://yiweiyun.net/images/icon.jpg" class="itempic"/>
+                <view class="itemright">
+                  <view style=" color: blue; margin-left: 20rpx; margin-top: 10rpx; font-size: 14px;">
+                            编号：{{item.orderNo}}
+                  </view>
+                  <view class='item-right-detail'>
+                    <view>
+                                         单位名称：
+                    </view>
+                    <view>
+                                         哈哈哈
+                    </view>
+                  </view>
+                  <view class='item-right-detail'>
+                    <view>
+                                         故障现象：
+                    </view>
+                    <view>
+                                         哈哈哈
+                    </view>
+                  </view>
+                  <view class='item-right-detail'>
+                    <view>
+                                         提交时间：
+                    </view>
+                    <view>
+                                         哈哈哈
+                    </view>
+                  </view>
+                  <view class='item-right-detail'>
+                    <view>
+                                         报修人：
+                    </view>
+                    <view>
+                                         哈哈哈
+                    </view>
+                  </view>
+                  <view class='item-right-detail'>
+                    <view>
+                                         维修员：
+                    </view>
+                    <view>
+                                         哈哈哈
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </block>
+            </tab-content>
+            </block>
+            </tabs>
+          </view>
+          </view>

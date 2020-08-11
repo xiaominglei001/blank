@@ -11,15 +11,55 @@
 .radio-group {
   padding: 30rpx 40rpx 0;
 }
+
 .radio {
   margin-right: 10px;
 }
+
 .demo-title {
   margin: 30rpx 40rpx 0;
   padding-bottom: 10px;
   font-weight: bold;
   border-bottom: 1px solid #ccc;
 }
-.am-tabs-bar-title-underline{
+
+.am-tabs-bar-title-underline {
   width: 150rpx!important;
+}
+
+.item-radio {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* item布局 */
+
+.itemsingleall {
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  padding: 25rpx;
+  margin-top: 10rpx;
+}
+
+.itemright {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.itempic {
+  width: 220rpx;
+  height: 290rpx;
+  margin-left: 10rpx;
+}
+.item-right-detail {
+  display: flex;
+  margin-left: 20rpx;
+  margin-top: 10rpx;
+  font-size: 14px;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10rpx;
 }
