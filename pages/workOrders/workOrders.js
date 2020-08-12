@@ -307,9 +307,11 @@ Page({
       },
       fail: function(res) {
         console.log("发生错误：" + res);
+        me.stopPullDownRefresh();
       },
       complete: function(res) {
         console.log("最终执行的complete：" + res);
+        me.stopPullDownRefresh();
       }
     });
 
@@ -345,15 +347,15 @@ Page({
                 subTitle: "全部"
               },
               {
-                title:  carouselsCount.unprocessed,
+                title: carouselsCount.unprocessed,
                 subTitle: "待处理"
               },
               {
-                title:  carouselsCount.processing,
+                title: carouselsCount.processing,
                 subTitle: "处理中"
               },
               {
-                title:  carouselsCount.unconfirmed,
+                title: carouselsCount.unconfirmed,
                 subTitle: "待确认"
               },
               {
@@ -401,5 +403,17 @@ Page({
     date.push(start);
     date.push(end);
     return date;
+  },
+
+  onPullDownRefresh() {
+    console.log("onPullDownRefresh", new Date());
+      this.getData();
+  },
+  stopPullDownRefresh() {
+    my.stopPullDownRefresh({
+      complete(res) {
+        console.log(res, new Date());
+      }
+    });
   }
 });

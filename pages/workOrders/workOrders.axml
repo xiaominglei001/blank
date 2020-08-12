@@ -16,7 +16,12 @@
           <view>
             <block a:for="{{listitemddata}}" a:for-item="item">
               <view class="itemsingleall">
-                <image src="http://yiweiyun.net/images/icon.jpg" class="itempic"/>
+                <view style=" display: flex; flex-direction: column; justify-content: center;align-items: center; ">
+                  <image src="/icons/ims_djd.png" class="itempic"/>
+                  <view>
+                  {{item.flowStatus}}
+                  </view>
+                </view>
                 <view class="itemright">
                   <view style=" color: blue; margin-left: 20rpx; margin-top: 10rpx; font-size: 14px;">
                             编号：{{item.orderNo}}
@@ -26,7 +31,7 @@
                                          单位名称：
                     </view>
                     <view>
-                                         哈哈哈
+                                         {{item.belongCompanyName}}
                     </view>
                   </view>
                   <view class='item-right-detail'>
@@ -34,7 +39,7 @@
                                          故障现象：
                     </view>
                     <view>
-                                         哈哈哈
+                                        {{item.contentDesc}}
                     </view>
                   </view>
                   <view class='item-right-detail'>
@@ -42,7 +47,7 @@
                                          提交时间：
                     </view>
                     <view>
-                                         哈哈哈
+                                      {{item.applyDate}}
                     </view>
                   </view>
                   <view class='item-right-detail'>
@@ -50,7 +55,7 @@
                                          报修人：
                     </view>
                     <view>
-                                         哈哈哈
+                                           {{item.applierName}}
                     </view>
                   </view>
                   <view class='item-right-detail'>
@@ -58,7 +63,7 @@
                                          维修员：
                     </view>
                     <view>
-                                         哈哈哈
+                                          {{item.accepter.name}}
                     </view>
                   </view>
                 </view>

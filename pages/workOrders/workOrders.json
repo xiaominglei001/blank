@@ -1,5 +1,6 @@
 {
   "defaultTitle": "Tabs",
+  "pullRefresh": true,
   "usingComponents":{
     "date-info": "../components/dateInfo/dateInfo",
     "sub-tabs": "../components/subTabs/subTabs",
