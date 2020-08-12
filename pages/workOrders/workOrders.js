@@ -50,23 +50,23 @@ Page({
     //sub
     subTabs: [
       {
-        title: "1",
+        title: "0",
         subTitle: "全部"
       },
       {
-        title: "2",
+        title: "0",
         subTitle: "待处理"
       },
       {
-        title: "3",
+        title: "0",
         subTitle: "处理中"
       },
       {
-        title: "4",
+        title: "0",
         subTitle: "待确认"
       },
       {
-        title: "5",
+        title: "0",
         subTitle: "已完成"
       }
     ],
@@ -188,7 +188,7 @@ Page({
     });
     this.getData();
   },
-  handlesubs({ index, tabsName }) {
+  handlesubsonChange({ index, tabsName }) {
     console.log("点击状态-----------------" + index);
     this.setData({
       [tabsName]: index
@@ -207,7 +207,7 @@ Page({
     this.setData({
       dateList: params.currentDate,
       beginDate: params.beginDate,
-      endDate: params.beginDate
+      endDate: params.endDate
     });
     console.log(params);
     if (params.type === 0) {
@@ -247,37 +247,130 @@ Page({
         this.data.subactiveTab
     );
 
-   var me = this;
-    // 请求数据
+    var tempFlowStatus = 0;
+    switch (this.data.subactiveTab) {
+      case 0:
+        tempFlowStatus = 0;
+        break;
+      case 1:
+        tempFlowStatus = 2003;
+        break;
+      case 2:
+        tempFlowStatus = 2006;
+        break;
+      case 3:
+        tempFlowStatus = 2009;
+        break;
+      case 4:
+        tempFlowStatus = 2010;
+        break;
+    }
+    var me = this;
+    var token = "fb3adc7dc91537ce";
+    var searchValue = "";
+    var companyId = "";
+    var curpageTemp = 0;
+    // 请求列表数据
     my.request({
-        url: 'http://120.237.131.50:8082/ims-web/app/repair/order/page?token=fb3adc7dc91537ce&searchValue=&companyId=&flowStatus='
-        +this.data.subactiveTab+'&curPage=0&beginDate='+this.data.beginDate+'&endDate='+this.data.endDate,
-        method: 'POST',
-        header:{ 
-          'content-type': 'application/json' 
-        },
-        // data: { name: 'jack', age:'18' },
-        dataType: 'json',
-        success: function(res) {
-          console.log(res);
-          // 获取拿到后端的数据
-          var myData = res.data;
-          if (myData.status == 200) {
-            var carousels = myData.data.rows;
-            // 把新的数据重新覆盖数据绑定中的原有的值
-            me.setData({
-              listitemddata: carousels
-            });
-          }
-        },
-        fail: function(res) {
-          console.log("发生错误：" + res);
-        },
-        complete: function(res) {
-          console.log("最终执行的complete：" + res);
+      url:
+        "http://120.237.131.50:8082/ims-web/app/repair/order/page?token=" +
+        token +
+        "&searchValue=" +
+        searchValue +
+        "&companyId=" +
+        companyId +
+        "&flowStatus=" +
+        tempFlowStatus +
+        "&curPage=" +
+        curpageTemp +
+        "&beginDate=" +
+        this.data.beginDate +
+        "&endDate=" +
+        this.data.endDate,
+      method: "POST",
+      header: {
+        "content-type": "application/json"
+      },
+      // data: { name: 'jack', age:'18' },
+      dataType: "json",
+      success: function(res) {
+        console.log(res);
+        // 获取拿到后端的数据
+        var myData = res.data;
+        if (myData.status == 0) {
+          var carousels = myData.data.rows;
+          // 把新的数据重新覆盖数据绑定中的原有的值
+          me.setData({
+            listitemddata: carousels
+          });
         }
+      },
+      fail: function(res) {
+        console.log("发生错误：" + res);
+      },
+      complete: function(res) {
+        console.log("最终执行的complete：" + res);
+      }
     });
 
+    // 请求统计数据
+    my.request({
+      url:
+        "http://120.237.131.50:8082/ims-web/app/repair/order/count?token=" +
+        token +
+        "&companyId=" +
+        companyId +
+        "&flowStatus=" +
+        tempFlowStatus +
+        "&beginDate=" +
+        this.data.beginDate +
+        "&endDate=" +
+        this.data.endDate,
+      header: {
+        "content-type": "application/json"
+      },
+      // data: { name: 'jack', age:'18' },
+      dataType: "json",
+      success: function(res) {
+        console.log(res);
+        // 获取拿到后端的数据
+        var myDataCount = res.data;
+        if (myDataCount.status == 0) {
+          var carouselsCount = myDataCount.data;
+          // 把新的数据重新覆盖数据绑定中的原有的值
+          me.setData({
+            subTabs: [
+              {
+                title: carouselsCount.all,
+                subTitle: "全部"
+              },
+              {
+                title:  carouselsCount.unprocessed,
+                subTitle: "待处理"
+              },
+              {
+                title:  carouselsCount.processing,
+                subTitle: "处理中"
+              },
+              {
+                title:  carouselsCount.unconfirmed,
+                subTitle: "待确认"
+              },
+              {
+                title: carouselsCount.finished,
+                subTitle: "已完成"
+              }
+            ]
+          });
+        }
+      },
+      fail: function(res) {
+        console.log("发生错误：" + res);
+      },
+      complete: function(res) {
+        console.log("最终执行的complete：" + res);
+      }
+    });
   },
   // 获取下一周的开始结束时间，周日到周六
   getCurrWeekDays() {

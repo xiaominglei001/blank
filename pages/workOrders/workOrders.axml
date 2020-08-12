@@ -10,11 +10,10 @@
   <!--下部子组件 -->
   <!--<sub-tabs beginDate="{{beginDate}}" endDate="{{endDate}}"/>-->
   <view>
-    <tabs tabs="{{subTabs}}" activeCls="active-tabs" tabsName="subactiveTab" onTabClick="handlesubTabChange" onPlusClick="handlePlusClick" onChange="handlesubs" activeTab="{{subactiveTab}}" swipeable="{{true}}" hasSubTitle="{{typeHasSubTitle}}" tabBarUnderlineWidth="20px">
+    <tabs tabs="{{subTabs}}" activeCls="active-tabs" tabsName="subactiveTab" onTabClick="handlesubTabChange" onPlusClick="handlePlusClick" onChange="handlesubsonChange" activeTab="{{subactiveTab}}" swipeable="{{true}}" hasSubTitle="{{typeHasSubTitle}}" tabBarUnderlineWidth="20px">
       <block a:for="{{subTabs}}">
         <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{subactiveTab}}">
           <view>
-         {{subactiveTab}}
             <block a:for="{{listitemddata}}" a:for-item="item">
               <view class="itemsingleall">
                 <image src="http://yiweiyun.net/images/icon.jpg" class="itempic"/>
