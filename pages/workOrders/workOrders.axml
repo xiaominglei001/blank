@@ -11,10 +11,14 @@
   <!--<sub-tabs beginDate="{{beginDate}}" endDate="{{endDate}}"/>-->
   <view>
     <tabs tabs="{{subTabs}}" activeCls="active-tabs" tabsName="subactiveTab" onTabClick="handlesubTabChange" onPlusClick="handlePlusClick" onChange="handlesubsonChange" activeTab="{{subactiveTab}}" swipeable="{{true}}" hasSubTitle="{{typeHasSubTitle}}" tabBarUnderlineWidth="20px">
-      <block a:for="{{subTabs}}">
+     
+
+     
+         <block a:for="{{subTabs}}">
         <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{subactiveTab}}">
-          <view>
-            <block a:for="{{listitemddata}}" a:for-item="item">
+          <view class="schedule-container">
+            <scroll-view scroll-y="{{true}}" class="schedule-scroll" onScrollToLower="scrollMytrip">
+            <view a:for="{{listitemddata}}" a:for-item="item">
               <view class="itemsingleall">
                 <view style=" display: flex; flex-direction: column; justify-content: center;align-items: center; ">
                   <image src="/icons/ims_djd.png" class="itempic"/>
@@ -68,10 +72,18 @@
                   </view>
                 </view>
               </view>
-            </block>
+            </view>
+            </scroll-view>
+            <!-- 加载中 样式 -->
+            <view class="spinner" style="{{showLoading ? '' : 'display:none'}}">
+              <view class="bounce1 bounce"></view>
+              <view class="bounce2 bounce"></view>
+              <view class="bounce3 bounce"></view>
+              <view style="margin:20rpx 0 0 20rpx;color:#666666;">加载中...</view>
+            </view>
           </view>
         </tab-content>
-      </block>
+      </block> 
     </tabs>
   </view>
 </view>

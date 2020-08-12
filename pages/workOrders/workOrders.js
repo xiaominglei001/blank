@@ -76,7 +76,8 @@ Page({
     addnum1: 0,
     addnum2: 0,
     addnum3: 0,
-    currentDate: ""
+    currentDate: "",
+    showLoading:false,
   },
 
   typeChange(e) {
@@ -415,5 +416,20 @@ Page({
         console.log(res, new Date());
       }
     });
+  },
+  scrollMytrip(){
+    try {
+       this.setData({ showLoading: true });
+      // const { page, list, } = this.data;
+      // 判断是否还有数据需要加载
+      // if (list.length < mockTotal) {
+      //   this.setData({ show: true });
+      //   const newPage = page + 1;
+      //   this.mySchedulde(newPage);
+      // }
+    } catch (e) {
+      // this.setData({ show: false });
+      // console.log('scrollMytrip执行异常:', e);
+    }
   }
 });
